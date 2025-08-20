@@ -126,8 +126,5 @@ class Mod:
 
 
 print(Mod(3,12) == Mod(15,12))
-
 print(Mod(3,12) + 12)
-
-
 print(Mod(3,12) + 25)

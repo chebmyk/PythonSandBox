@@ -1,0 +1,56 @@
+version: 1
+disable_existing_loggers: true
+
+formatters:
+  file_formatter:
+    format: '{"time": %(asctime)s, "logger": %(name)s, "level": %(levelname)s, "message": %(message)s }'
+  console_formatter:
+    style: '{'
+    format: '{asctime} - {name} - {levelname} - {message}'
+  extra_param_formatter:
+    style: '{'
+    format: 'Extra: {asctime} - {name} - {levelname} - {message} - {param}'
+
+filters:
+  threshold_filter:
+    '()': __main__.CustomLogFilter
+    arg_name: 'param'
+    arg_threshold: 150
+
+# Predefined Handlers https://docs.python.org/3/library/logging.handlers.html
+handlers:
+  simple_file:
+    formatter: file_formatter
+    class: logging.FileHandler
+    filename: logs/example.log
+    mode: a
+
+  rotating_file:
+    formatter: file_formatter
+    class: logging.handlers.RotatingFileHandler
+    filename: logs/rotate.log
+    maxBytes: 1000
+    backupCount: 3
+
+  console:
+    formatter: console_formatter
+    level: WARNING
+    class: logging.StreamHandler
+    stream: ext://sys.stdout
+
+  special:
+    formatter: extra_param_formatter
+    level: WARNING
+    class: logging.StreamHandler
+    stream: ext://sys.stdout
+    filters: ['threshold_filter']
+
+
+loggers:
+  root:
+    level: DEBUG
+    # set logging output to file and console
+    handlers: [rotating_file, console, special]
+
+  app:
+    level: INFO

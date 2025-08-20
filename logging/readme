@@ -1,0 +1,4 @@
+Python logging documentation: https://docs.python.org/3/library/logging.html
+Logging levels: https://docs.python.org/3/library/logging.html#logging-levels
+LogRecord attributes: https://docs.python.org/3/library/logging.html#logrecord-attributes
+Built-in Handlers: https://docs.python.org/3/library/logging.handlers.html
